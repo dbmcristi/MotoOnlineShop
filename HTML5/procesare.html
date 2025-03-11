@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Administrare Motociclete</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+        }
+        table {
+            width: 90%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        .header {
+            background-color: #CCCCCC;
+            font-weight: bold;
+        }
+        nav ul {
+            list-style-type: none;
+            padding: 0;
+        }
+        nav ul li {
+            display: inline;
+            margin: 0 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><b>Administrare Motociclete</b></h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Acasa</a></li>
+                <li><a href="inregistrare.html">Inregistrare</a></li>
+                <li><a href="autentificare.html">Autentificare</a></li>
+                <li><a href="motociclete.html">Motociclete</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main>
+        <section>
+            <table>
+                <tr>
+                    <td colspan="2" class="header"><strong>Adaugare Motocicleta</strong></td>
+                </tr>
+                <tr>
+                    <td>
+                        <form action="procesare.php" method="post" enctype="multipart/form-data">
+                            <fieldset>
+                                <legend>Detalii Motocicleta</legend>
+                                <p>Marca: <input type="text" name="marca" maxlength="50" required></p>
+                                <p>Model: <input type="text" name="model" maxlength="50" required></p>
+                                <p>An: <input type="number" name="an" min="1900" max="2025" required></p>
+                                <p>Pret: <input type="number" name="pret" min="1" required> Lei</p>
+                                <p>Tip:
+                                    <select name="tip">
+                                        <option value="sport">Sport</option>
+                                        <option value="cruiser">Cruiser</option>
+                                        <option value="touring">Touring</option>
+                                        <option value="naked">Naked</option>
+                                    </select>
+                                </p>
+                                <p>Descriere: <textarea name="descriere" rows="4" cols="40"></textarea></p>
+                                <p>Imagine: <input type="file" name="imagine" accept="image/*"></p>
+                                <p><input type="submit" value="Adauga Motocicleta"></p>
+                            </fieldset>
+                        </form>
+                    </td>
+                </tr>
+            </table>
+        </section>
+
+        <section>
+            <table>
+                <tr>
+                    <td colspan="3" class="header"><strong>Lista Motociclete</strong></td>
+                </tr>
+                <tr>
+                    <th>Marca</th>
+                    <th>Model</th>
+                    <th>Actiuni</th>
+                </tr>
+                <tr>
+                    <td>Yamaha</td>
+                    <td>R1</td>
+                    <td>
+                        <a href="editare.html?id=1">Editeaza</a> |
+                        <a href="stergere.html?id=1">Sterge</a>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Honda</td>
+                    <td>CBR600RR</td>
+                    <td>
+                        <a href="editare.html?id=2">Editeaza</a> |
+                        <a href="stergere.html?id=2">Sterge</a>
+                    </td>
+                </tr>
+            </table>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Magazin Motociclete</p>
+    </footer>
+
+</body>
+</html>
+

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazin Motociclete</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+        }
+        th, td {
+            border: 1px solid black;
+            padding: 10px;
+        }
+        .header {
+            background-color: #CCCCCC;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Magazin Motociclete</h1>
+        <nav>
+            <a href="index.html">Acasa</a> |
+            <a href="inregistrare.html">Inregistrare</a> |
+            <a href="autentificare.html">Autentificare</a> |
+            <a href="motociclete.html">Motociclete</a>
+        </nav>
+    </header>
+    
+    <main>
+        <table>
+            <tr>
+                <td colspan="2" class="header">Inregistrare</td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="procesare.html" method="post">
+                        <fieldset>
+                            <legend>Detalii utilizator</legend>
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" ><br><br>
+
+                            <label for="parola">Parola:</label>
+                            <input type="password" id="parola" name="parola" ><br><br>
+
+                            <p>Tip utilizator:</p>
+                            <input type="radio" id="client" name="tip" value="client">
+                            <label for="client">Client</label>
+                            
+                            <input type="radio" id="magazin" name="tip" value="magazin">
+                            <label for="magazin">Magazin</label><br><br>
+
+                            <button type="submit">Inregistreaza-te</button>
+                        </fieldset>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Magazin Motociclete</p>
+    </footer>
+</body>
+</html>
+
