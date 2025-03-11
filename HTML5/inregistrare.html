@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Magazin Motociclete</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+        }
+        table {
+            width: 80%;
+            border-collapse: collapse;
+            margin: 20px auto;
+            border: 1px solid black;
+        }
+        th, td {
+            padding: 10px;
+            border: 1px solid black;
+        }
+        .header {
+            background-color: #CCCCCC;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>Magazin Motociclete</h1>
+        <nav>
+            <a href="index.html">Acasa</a> |
+            <a href="inregistrare.html">Inregistrare</a> |
+            <a href="autentificare.html">Autentificare</a> |
+            <a href="motociclete.html">Motociclete</a>
+        </nav>
+    </header>
+
+    <main>
+        <table>
+            <tr>
+                <td colspan="2" class="header"><strong>Inregistrare</strong></td>
+            </tr>
+            <tr>
+                <td>
+                    <form action="procesare.php" method="post">
+                        <fieldset>
+                            <legend>Detalii utilizator</legend>
+                            <p>Email: <input type="email" name="email" size="30" required></p>
+                            <p>Parola: <input type="password" name="parola" size="30" required></p>
+                            <p>Tip utilizator: 
+                                <input type="radio" name="tip" value="client"> Client
+                                <input type="radio" name="tip" value="magazin"> Magazin
+                            </p>
+                            <p><input type="submit" value="Inregistreaza-te"></p>
+                        </fieldset>
+                    </form>
+                </td>
+            </tr>
+        </table>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 Magazin Motociclete</p>
+    </footer>
+</body>
+</html>
+
