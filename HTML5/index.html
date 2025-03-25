@@ -4,36 +4,237 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Magazin Motociclete</title>
-    <style>
+   <style>
         body {
-            text-align: center;
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
             font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
         }
+
+        header {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            padding: 20px;
+            color: white;
+            text-align: center;
+            position: relative;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            display: inline-block;
+            transition: transform 0.5s ease, rotate 0.5s ease;
+            cursor: pointer;
+        }
+
+        header h1:hover {
+            transform: scale(1.2) rotate(5deg);
+        }
+
+        nav {
+            margin-top: 10px;
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #333;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
         table {
             width: 80%;
             border-collapse: collapse;
             margin: 20px auto;
+            background-color: white;
+            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
         }
+
         th, td {
-            border: 1px solid black;
-            padding: 10px;
+            border: 1px solid #ddd;
+            padding: 15px;
         }
+
         .header {
-            background-color: #CCCCCC;
+            background-color: #feb47b;
             font-weight: bold;
+            color: white;
+            text-align: center;
+            font-size: 1.2rem;
         }
-    </style>
+
+        fieldset {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 8px;
+        }
+
+        legend {
+            font-weight: bold;
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="email"],
+        input[type="password"] {
+            width: 95%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #ff7e5f;
+            border: none;
+            color: white;
+            cursor: pointer;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+            margin-top: 15px;
+        }
+
+        button:hover {
+            background-color: #e66450;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+        }
+
+        /* Sprite CSS */
+        .sprite-icon {
+            display: inline-block;
+            width: 32px;
+            height: 32px;
+            background-image: url('sprite.png');
+            background-repeat: no-repeat;
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+
+        .sprite-home { background-position: 0 0; }
+        .sprite-user { background-position: -32px 0; }
+        .sprite-lock { background-position: 0 -32px; }
+        .sprite-moto { background-position: -32px -32px; }
+        nav ul.menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul.menu > li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul.menu > li > a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            display: block;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav ul.menu > li > a:hover {
+            color: #333;
+        }
+
+        nav ul.menu li ul.submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 126, 95, 0.95);
+            border-radius: 0 0 10px 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            z-index: 99;
+        }
+
+        nav ul.menu li:hover ul.submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        nav ul.menu li ul.submenu li a {
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        nav ul.menu li ul.submenu li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+   </style>
 </head>
 <body>
-    <header>
-        <h1>Magazin Motociclete</h1>
-        <nav>
-            <a href="index.html">Acasa</a> |
-            <a href="inregistrare.html">Inregistrare</a> |
-            <a href="autentificare.html">Autentificare</a> |
-            <a href="motociclete.html">Motociclete</a>
-        </nav>
-    </header>
+<header>
+    <h1>Magazin Motociclete</h1>
+    <nav>
+        <ul class="menu">
+            <li>
+                <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a>
+            </li>
+            <li>
+                <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a>
+                <ul class="submenu">
+                    <li><a href="inregistrare_client.html">Client</a></li>
+                    <li><a href="inregistrare_magazin.html">Magazin</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a>
+                <ul class="submenu">
+                    <li><a href="recuperare_parola.html">Recuperare parolă</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
+                <ul class="submenu">
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
     
     <main>
         <table>
