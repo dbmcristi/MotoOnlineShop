@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Motociclete - Magazin Motociclete</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+        }
+
+        header {
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            padding: 20px;
+            color: white;
+            text-align: center;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 3rem;
+            transition: transform 0.5s ease;
+            cursor: pointer;
+        }
+
+        header h1:hover {
+            transform: scale(1.1) rotate(3deg);
+        }
+
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            transition: color 0.3s;
+        }
+
+        nav a:hover {
+            color: #333;
+        }
+
+        main {
+            flex: 1;
+            padding: 20px;
+        }
+
+        table {
+            width: 90%;
+            margin: 20px auto;
+            border-collapse: collapse;
+            background-color: white;
+            box-shadow: 0 0 12px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        th, td {
+            padding: 20px;
+            border: 1px solid #ddd;
+            text-align: center;
+            position: relative;
+        }
+
+        th {
+            background-color: #feb47b;
+            color: white;
+            font-size: 1.2rem;
+        }
+
+        img {
+            max-width: 120px;
+            border-radius: 10px;
+            transition: transform 0.3s, box-shadow 0.3s;
+            cursor: pointer;
+        }
+
+        img:hover {
+            transform: scale(1.1);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+        }
+
+        td:hover .tooltip {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .tooltip {
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            background-color: rgba(51, 51, 51, 0.9);
+            color: #fff;
+            padding: 10px;
+            border-radius: 8px;
+            white-space: nowrap;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.4s;
+            z-index: 10;
+        }
+
+        .tooltip::after {
+            content: "";
+            position: absolute;
+            top: 100%;
+            left: 50%;
+            margin-left: -6px;
+            border-width: 6px;
+            border-style: solid;
+            border-color: rgba(51, 51, 51, 0.9) transparent transparent transparent;
+        }
+
+        footer {
+            background-color: #333;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: auto;
+        }
+
+        nav ul.menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul.menu > li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul.menu > li > a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            display: block;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav ul.menu > li > a:hover {
+            color: #333;
+        }
+
+        nav ul.menu li ul.submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 126, 95, 0.95);
+            border-radius: 0 0 10px 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            z-index: 99;
+        }
+
+        nav ul.menu li:hover ul.submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        nav ul.menu li ul.submenu li a {
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        nav ul.menu li ul.submenu li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+    </style>
+</head>
+<body>
+<header>
+    <h1>Magazin Motociclete</h1>
+    <nav>
+        <ul class="menu">
+            <li>
+                <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a>
+            </li>
+            <li>
+                <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a>
+                <ul class="submenu">
+                    <li><a href="inregistrare_client.html">Client</a></li>
+                    <li><a href="inregistrare_magazin.html">Magazin</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a>
+                <ul class="submenu">
+                    <li><a href="recuperare_parola.html">Recuperare parolă</a></li>
+                </ul>
+            </li>
+            <li>
+                <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
+                <ul class="submenu">
+                    <li><a href="news.html">News</a></li>
+                    <li><a href="blog.html">Blog</a></li>
+                </ul>
+            </li>
+        </ul>
+    </nav>
+</header>
+
+<main>
+    <table>
+        <tr>
+            <th>Imagine</th>
+            <th>Model</th>
+            <th>Pret</th>
+        </tr>
+        <tr>
+            <td>
+                <img src="CBR500R-culoare-04.png" alt="Honda CBR">
+                <div class="tooltip">Honda CBR 500R - Sportiva accesibilă și puternică.Motocicleta sportivă perfectă
+                    pentru începători și intermediari.Include ABS și sistem de pornire rapidă.
+                </div>
+            </td>
+            <td>
+                Honda CBR 500R
+            </td>
+            <td>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png"
+                     alt="Yamaha MT-07">
+                <div class="tooltip">Yamaha MT-07 - Naked bike agil și ușor de manevrat.Motor bicilindru de 689cc, ideal
+                    pentru oraș și touring.Disponibilă și în varianta limitată A2.
+                </div>
+            </td>
+            <td>
+                Yamaha MT-07
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <img src="bmw-select-model-style-rallye-1676369960822.png" alt="BMW GS 1250">
+                <div class="tooltip">BMW GS 1250 - Cea mai bună motocicletă de aventură.Perfectă pentru drumuri lungi,
+                    confort și tehnologie avansată.Include pilot automat și suspensie reglabilă.
+                </div>
+            </td>
+            <td>
+                BMW GS 1250
+            </td>
+            <td>
+
+            </td>
+        </tr>
+    </table>
+
+</main>
+
+<footer>
+    <p>&copy; 2025 Magazin Motociclete</p>
+</footer>
+</body>
+</html>
