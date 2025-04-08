@@ -75,6 +75,14 @@
             font-size: 1.2rem;
         }
 
+        th.sorted-asc::after {
+            content: " 🔼";
+        }
+
+        th.sorted-desc::after {
+            content: " 🔽";
+        }
+
         img {
             max-width: 120px;
             border-radius: 10px;
@@ -189,6 +197,7 @@
             background: rgba(255, 255, 255, 0.2);
         }
 
+
     </style>
 </head>
 <body>
@@ -273,11 +282,187 @@
             </td>
         </tr>
     </table>
+    <table class="sortable">
+        <thead>
+        <tr>
+            <th>Nume</th>
+            <th>Vârstă</th>
+            <th>Oraș</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Maria</td>
+            <td>29</td>
+            <td>București</td>
+        </tr>
+        <tr>
+            <td>Ion</td>
+            <td>35</td>
+            <td>Cluj</td>
+        </tr>
+        <tr>
+            <td>Andreea</td>
+            <td>24</td>
+            <td>Timișoara</td>
+        </tr>
+        <tr>
+            <td>George</td>
+            <td>40</td>
+            <td>Iași</td>
+        </tr>
+        </tbody>
+    </table>
+
+    <table class="sortable">
+        <thead>
+        <tr>
+            <th>Produs</th>
+            <th>Preț</th>
+            <th>Cantitate</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Laptop</td>
+            <td>3500</td>
+            <td>3</td>
+        </tr>
+        <tr>
+            <td>Telefon</td>
+            <td>2200</td>
+            <td>5</td>
+        </tr>
+        <tr>
+            <td>Monitor</td>
+            <td>1200</td>
+            <td>2</td>
+        </tr>
+        <tr>
+            <td>Tastatură</td>
+            <td>300</td>
+            <td>10</td>
+        </tr>
+        </tbody>
+    </table>
+
+
+    <div id="slider-container">
+        <img id="slider-image" src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png" alt="Slide 1" />
+    </div>
+
+    <div class="controls">
+        <button id="playPauseBtn">▶️ Play</button>
+
+        <label>
+            <input type="checkbox" id="repeatCheckbox"> Repetă
+        </label>
+
+        <label for="intervalSelect">Interval (sec):</label>
+        <select id="intervalSelect">
+            <option value="2">2</option>
+            <option value="3" selected>3</option>
+            <option value="5">5</option>
+            <option value="7">7</option>
+        </select>
+    </div>
 
 </main>
 
 <footer>
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
+<script>
+    document.querySelectorAll("table.sortable").forEach((table) => {
+        const headers = table.querySelectorAll("thead th");
+        headers.forEach((th, columnIndex) => {
+            th.addEventListener("click", () => {
+                const tbody = table.querySelector("tbody");
+                const rows = Array.from(tbody.querySelectorAll("tr"));
+                const isNumericColumn = !isNaN(rows[0].children[columnIndex].textContent.trim());
+                const isAsc = th.classList.contains("sorted-asc");
+
+                // Reset alte sortări
+                headers.forEach(h => h.classList.remove("sorted-asc", "sorted-desc"));
+
+                // Sortează rândurile
+                rows.sort((a, b) => {
+                    const cellA = a.children[columnIndex].textContent.trim();
+                    const cellB = b.children[columnIndex].textContent.trim();
+
+                    if (isNumericColumn) {
+                        return isAsc ? cellB - cellA : cellA - cellB;
+                    } else {
+                        return isAsc
+                            ? cellB.localeCompare(cellA)
+                            : cellA.localeCompare(cellB);
+                    }
+                });
+
+                // Adaugă rândurile sortate
+                rows.forEach(row => tbody.appendChild(row));
+
+                // Marchează direcția sortării
+                th.classList.add(isAsc ? "sorted-desc" : "sorted-asc");
+            });
+        });
+    });
+</script>
+
+<script>
+    const imageList = [
+        "kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png",
+        "CBR500R-culoare-04.png",
+        "bmw-select-model-style-rallye-1676369960822.png"
+    ];
+
+    const sliderImage = document.getElementById("slider-image");
+    const playPauseBtn = document.getElementById("playPauseBtn");
+    const repeatCheckbox = document.getElementById("repeatCheckbox");
+    const intervalSelect = document.getElementById("intervalSelect");
+
+    let currentIndex = 0;
+    let isPlaying = false;
+    let interval = 3000; // default 3 sec
+    let timer = null;
+
+    function showNextImage() {
+        currentIndex++;
+        if (currentIndex >= imageList.length) {
+            if (repeatCheckbox.checked) {
+                currentIndex = 0;
+            } else {
+                pauseSlideshow();
+                return;
+            }
+        }
+        sliderImage.src = imageList[currentIndex];
+    }
+
+    function startSlideshow() {
+        interval = parseInt(intervalSelect.value) * 1000;
+        isPlaying = true;
+        playPauseBtn.textContent = "⏸️ Pauză";
+        timer = setInterval(showNextImage, interval);
+    }
+
+    function pauseSlideshow() {
+        isPlaying = false;
+        playPauseBtn.textContent = "▶️ Play";
+        clearInterval(timer);
+    }
+
+    playPauseBtn.addEventListener("click", () => {
+        isPlaying ? pauseSlideshow() : startSlideshow();
+    });
+
+    intervalSelect.addEventListener("change", () => {
+        if (isPlaying) {
+            pauseSlideshow();
+            startSlideshow();
+        }
+    });
+</script>
+
 </body>
 </html>

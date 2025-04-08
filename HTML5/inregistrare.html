@@ -29,7 +29,7 @@
             margin: 0;
             font-size: 3rem;
             display: inline-block;
-            transition: transform 0.5s ease;
+            transition: transform 0.5s ease, rotate 0.5s ease;
             cursor: pointer;
         }
 
@@ -111,8 +111,7 @@
 
         input[type="email"],
         input[type="password"],
-        input[type="text"],
-        select,
+        select:focus
         textarea {
             width: 100%;
             padding: 10px 14px;
@@ -124,7 +123,8 @@
             background-color: #fafafa;
         }
 
-        input:focus,
+        input[type="email"]:focus,
+        input[type="password"]:focus,
         select:focus,
         textarea:focus {
             border-color: #ff7e5f;
@@ -137,11 +137,6 @@
             margin-right: 6px;
             accent-color: #ff7e5f;
             transform: scale(1.2);
-        }
-
-        textarea {
-            resize: vertical;
-            min-height: 80px;
         }
 
         button {
@@ -170,6 +165,7 @@
             padding: 15px;
             margin-top: auto;
         }
+
         /* Sprite CSS - adaugă imaginea ta sprite.png în același folder și adaptează pozițiile */
         .sprite-icon {
             display: inline-block;
@@ -185,6 +181,55 @@
         .sprite-user { background-position: -32px 0; }
         .sprite-lock { background-position: 0 -32px; }
         .sprite-moto { background-position: -32px -32px; }
+
+        /*La hover pe link-urile din meniu, item-ul activ va avea o bordura / un
+background care apare cu o animatie de cateva secunde. Variantele pentru meniu sunt
+urmatoarele:*/
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            font-weight: bold;
+            position: relative;
+            transition: color 0.3s;
+            padding: 8px 10px;
+        }
+
+        nav a::after {
+            content: "";
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 3px;
+            background-color: rgba(255, 255, 255, 0.9);
+            transition: width 1.5s;
+        }
+
+        nav a:hover::after {
+            width: 100%;
+        }
+
+        nav a::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 0;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: -1;
+            transition: width 1.5s;
+            border-radius: 5px;
+        }
+
+        nav a:hover::before {
+            width: 100%;
+        }
+
+        nav a:hover {
+            color: #333;
+        }
 
         nav ul.menu {
             list-style: none;
@@ -281,7 +326,6 @@
         </ul>
     </nav>
 </header>
-
 <main>
     <table>
         <tr>
@@ -293,10 +337,39 @@
                     <fieldset>
                         <legend>Detalii utilizator</legend>
                         <label for="email"><i class="fas fa-envelope"></i> Email:</label>
-                        <input type="email" id="email" name="email" required>
-
+                        <div style="display: flex; align-items: center;">
+                            <input type="email" id="email" name="email" required style="flex: 1;">
+                            <span id="email-valid"
+                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                        </div>
                         <label for="parola"><i class="fas fa-lock"></i> Parola:</label>
-                        <input type="password" id="parola" name="parola" required>
+                        <div style="display: flex; align-items: center;">
+                            <input type="password" id="parola" name="parola" required style="flex: 1;">
+                            <span id="parola-valid"
+                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                        </div>
+
+                        <label for="input1">Câmp 1:</label>
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" id="input1" name="input1" required style="flex: 1;">
+                            <span id="valid1"
+                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                        </div>
+
+                        <label for="input2">Câmp 2:</label>
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" id="input2" name="input2" required style="flex: 1;">
+                            <span id="valid2"
+                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                        </div>
+
+                        <label for="telefon">Telefon:</label>
+                        <div style="display: flex; align-items: center;">
+                            <input type="text" id="telefon" name="telefon" placeholder="(+40) 777 777 777" required
+                                   style="flex: 1;">
+                            <span id="telefon-valid"
+                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                        </div>
 
                         <label type="tip"><i class="fas fa-user-tag"></i> Tip utilizator:</label>
                         <label for="client">Client</label>
@@ -305,19 +378,32 @@
                         <label for="magazin">Magazin</label>
                         <input type="radio" id="magazin" name="tip" value="magazin">
 
-
                         <label for="observatii"><i class="fas fa-comment"></i> Observații:</label>
-                        <textarea id="observatii" name="observatii" placeholder="Scrie detalii suplimentare..."></textarea>
+                        <textarea id="observatii" name="observatii"
+                                  placeholder="Scrie detalii suplimentare..."></textarea>
 
-                        <label for="oras"><i class="fas fa-city"></i> Oraș:</label>
-                        <select id="oras" name="oras" required>
-                            <option value="">Selectează orașul</option>
-                            <option>București</option>
-                            <option>Cluj-Napoca</option>
-                            <option>Timișoara</option>
-                            <option>Iași</option>
-                            <option>Constanța</option>
+                        <label for="judet">Județ:</label>
+                        <select id="judet">
+                            <option value="">-- Selectează un județ --</option>
                         </select>
+
+                        <label for="oras">Oraș:</label>
+                        <select id="oras">
+                            <option value="">-- Selectează un oraș --</option>
+                        </select>
+                        <label for="data">Introdu data:</label>
+                        <input type="text" id="data" placeholder="Ex: 31/01/2006">
+
+                        <label for="format">Selectează formatul:</label>
+                        <select id="format">
+                            <option value="zz/ll/aaaa">zz/ll/aaaa</option>
+                            <option value="ll/zz/aaaa">ll/zz/aaaa</option>
+                            <option value="zz/ll/aa">zz/ll/aa</option>
+                        </select>
+
+                        <button type="button" onclick="valideazaData()">Verifică</button>
+
+                        <p id="rezultat"></p>
 
                         <button type="submit"><i class="fas fa-user-plus"></i> Înregistrează-te</button>
                     </fieldset>
@@ -325,10 +411,241 @@
             </td>
         </tr>
     </table>
+    <ol id="myList">
+        <li class="active">
+            <div>Primul element al listei.</div>
+            <a href="#">Read more</a>
+        </li>
+        <li>
+            <div>Al doilea element al listei.</div>
+            <a href="#">Read more</a>
+        </li>
+        <li>
+            <div>Al treilea element al listei.</div>
+            <a href="#">Read more</a>
+        </li>
+        <li>
+            <div>Al patrulea element al listei.</div>
+            <a href="#">Read more</a>
+        </li>
+    </ol>
+
+    <div class="controls">
+        <button id="prevBtn">Previous</button>
+        <button id="nextBtn">Next</button>
+    </div>
 </main>
 
 <footer>
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
+<script>
+    const parolaInput = document.getElementById('parola');
+    const indicator = document.getElementById('parola-valid');
+
+    function valideazaParola(parola) {
+        const areLiteraMare = /[A-Z]/.test(parola);
+        const areLiteraMica = /[a-z]/.test(parola);
+        const areCifra = /\d/.test(parola);
+        const areSpecial = /[!]/.test(parola);
+
+        return areLiteraMare && areLiteraMica && areCifra && areSpecial;
+    }
+
+    parolaInput.addEventListener('input', function () {
+        if (valideazaParola(parolaInput.value)) {
+            indicator.style.backgroundColor = 'green';
+        } else {
+            indicator.style.backgroundColor = 'red';
+        }
+    });
+</script>
+<script>
+    const emailInput = document.getElementById('email');
+    const emailIndicator = document.getElementById('email-valid');
+
+    function valideazaEmail(email) {
+        // Doar litere, cifre, _ înainte de @
+        const pattern = /^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]+(\.[a-zA-Z]+)*$/;
+
+        // Verificăm și că există un singur @
+        const atCount = (email.match(/@/g) || []).length;
+
+        return pattern.test(email) && atCount === 1;
+    }
+
+    emailInput.addEventListener('input', function () {
+        if (valideazaEmail(emailInput.value)) {
+            emailIndicator.style.backgroundColor = 'green';
+        } else {
+            emailIndicator.style.backgroundColor = 'red';
+        }
+    });
+</script>
+<script>
+    const input1 = document.getElementById('input1');
+    const input2 = document.getElementById('input2');
+    const valid1 = document.getElementById('valid1');
+    const valid2 = document.getElementById('valid2');
+
+    function esteValid(text) {
+        // Doar litere mici și cifre
+        return /^[a-z0-9]+$/.test(text);
+    }
+
+    function actualizeazaIndicator(input, indicator) {
+        if (esteValid(input.value)) {
+            indicator.style.backgroundColor = 'green';
+        } else {
+            indicator.style.backgroundColor = 'red';
+        }
+    }
+
+    input1.addEventListener('input', () => actualizeazaIndicator(input1, valid1));
+    input2.addEventListener('input', () => actualizeazaIndicator(input2, valid2));
+</script>
+<script>
+    const telefonInput = document.getElementById('telefon');
+    const telefonValid = document.getElementById('telefon-valid');
+
+    function valideazaTelefon(val) {
+        const normalizat = val.replace(/\s+/g, '');
+
+        const pattern = /^(\+40\d{9}|0\d{9}|\(\+40\)\d{9}|\(40\)\d{9}|\+\(40\)\d{9})$/;
+        return pattern.test(normalizat);
+    }
+
+    telefonInput.addEventListener('input', function () {
+        if (valideazaTelefon(telefonInput.value)) {
+            telefonValid.style.backgroundColor = 'green';
+        } else {
+            telefonValid.style.backgroundColor = 'red';
+        }
+    });
+</script>
+<script>
+    function valideaza(dataString, format) {
+        let zi, luna, an;
+        const delimitator = format.includes('/') ? '/' : '-';
+        const dataParts = dataString.split(delimitator);
+        const formatParts = format.split(delimitator);
+
+        if (dataParts.length !== formatParts.length) {
+            return false;
+        }
+
+        for (let i = 0; i < formatParts.length; i++) {
+            if (formatParts[i] === 'zz') zi = parseInt(dataParts[i], 10);
+            else if (formatParts[i] === 'll') luna = parseInt(dataParts[i], 10);
+            else if (formatParts[i] === 'aaaa') an = parseInt(dataParts[i], 10);
+            else if (formatParts[i] === 'aa') {
+                an = parseInt(dataParts[i], 10);
+                an += (an < 50 ? 2000 : 1900); // Ex: 97 -> 1997, 23 -> 2023
+            }
+        }
+
+        if (isNaN(zi) || isNaN(luna) || isNaN(an) || luna < 1 || luna > 12) {
+            return false;
+        }
+
+        const zileInLuna = new Date(an, luna, 0).getDate();
+
+        return zi >= 1 && zi <= zileInLuna;
+    }
+
+    function valideazaData() {
+        const data = document.getElementById('data').value;
+        const format = document.getElementById('format').value;
+        const rezultat = document.getElementById('rezultat');
+
+        if (valideaza(data, format)) {
+            rezultat.textContent = "✅ Dată validă!";
+            rezultat.className = "valid";
+        } else {
+            rezultat.textContent = "❌ Dată invalidă!";
+            rezultat.className = "invalid";
+        }
+    }
+</script>
+<script>
+    const dateRomania = {
+        "Cluj": ["Cluj-Napoca", "Turda", "Dej", "Gherla"],
+        "Timiș": ["Timișoara", "Lugoj", "Sânnicolau Mare"],
+        "Iași": ["Iași", "Pașcani", "Hârlău"],
+        "București": ["Sector 1", "Sector 2", "Sector 3", "Sector 4"],
+        "Constanța": ["Constanța", "Mangalia", "Medgidia"],
+    };
+
+    const judetSelect = document.getElementById('judet');
+    const orasSelect = document.getElementById('oras');
+
+    // Populăm dropdown-ul de județe
+    for (const judet in dateRomania) {
+        const option = document.createElement('option');
+        option.value = judet;
+        option.textContent = judet;
+        judetSelect.appendChild(option);
+    }
+
+    // La schimbarea județului, actualizăm orașele
+    judetSelect.addEventListener('change', function () {
+        const judetAles = this.value;
+
+        // Golește dropdown-ul de orașe
+        orasSelect.innerHTML = '<option value="">-- Selectează un oraș --</option>';
+
+        if (judetAles && dateRomania[judetAles]) {
+            dateRomania[judetAles].forEach(oras => {
+                const option = document.createElement('option');
+                option.value = oras;
+                option.textContent = oras;
+                orasSelect.appendChild(option);
+            });
+        }
+    });
+</script>
+<script>
+    const items = document.querySelectorAll("#myList li");
+    let currentIndex = 0;
+    const intervalSeconds = 3;
+    let interval;
+
+    function showItem(index) {
+        items.forEach((item, i) => {
+            item.classList.toggle("active", i === index);
+        });
+    }
+
+    function nextItem() {
+        currentIndex = (currentIndex + 1) % items.length;
+        showItem(currentIndex);
+    }
+
+    function prevItem() {
+        currentIndex = (currentIndex - 1 + items.length) % items.length;
+        showItem(currentIndex);
+    }
+
+    document.getElementById("nextBtn").addEventListener("click", () => {
+        clearInterval(interval);
+        nextItem();
+        startInterval();
+    });
+
+    document.getElementById("prevBtn").addEventListener("click", () => {
+        clearInterval(interval);
+        prevItem();
+        startInterval();
+    });
+
+    function startInterval() {
+        interval = setInterval(() => {
+            nextItem();
+        }, intervalSeconds * 1000);
+    }
+
+    // Start automat
+    startInterval();
+</script>
 </body>
 </html>
