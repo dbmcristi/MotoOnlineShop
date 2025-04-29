@@ -1,0 +1,20 @@
+/* Add basic styling for the carousel */
+.carousel-container {
+    width: 80%;
+    margin: 0 auto;
+    overflow: hidden;
+}
+
+.carousel {
+    display: flex;
+    transition: transform 0.3s ease;
+}
+
+.carousel-slide {
+    flex: 0 0 100%;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}

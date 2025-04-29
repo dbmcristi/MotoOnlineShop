@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Turometru Transport Gratuit cu Ac</title>
+    <style>
+        body {
+            font-family: Arial;
+            text-align: center;
+            margin: 40px;
+        }
+
+        #gaugeCanvas {
+            width: 300px;
+            height: 150px;
+        }
+
+        #amountDisplay {
+            font-size: 20px;
+            margin-top: 10px;
+        }
+
+        #sliderContainer {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2>Indicator Transport Gratuit</h2>
+    <canvas id="gaugeCanvas" width="300" height="150"></canvas>
+    <div id="amountDisplay">Total coș: 0 lei<br>Mai ai nevoie de: 200 lei</div>
+
+    <div id="sliderContainer">
+        <input type="range" id="amountSlider" min="0" max="250" step="1" value="0">
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const maxAmount = 200;
+
+    function drawGauge(current) {
+        const canvas = document.getElementById("gaugeCanvas");
+        const ctx = canvas.getContext("2d");
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height;
+        const radius = 120;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Fundal semicerc gri
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, 0);
+        ctx.strokeStyle = "#ddd";
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        // Semicerc progres
+        const percentage = Math.min(current / maxAmount, 1);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, Math.PI + Math.PI * percentage);
+        ctx.strokeStyle = percentage >= 1 ? "#4caf50" : "#2196f3";
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        // Acul (indicator)
+        const angle = Math.PI + Math.PI * percentage;
+        const needleLength = radius - 30;
+        const needleX = centerX + needleLength * Math.cos(angle);
+        const needleY = centerY + needleLength * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(needleX, needleY);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Punct central
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        // Text informativ
+        const remaining = Math.max(maxAmount - current, 0);
+        $("#amountDisplay").html(`Total coș: ${current} lei<br>` +
+            (remaining === 0 ? "✅ Livrare gratuită!" :
+                `Mai ai nevoie de: ${remaining} lei`));
+    }
+
+    $(document).ready(function () {
+        $("#amountSlider").on("input", function () {
+            const val = parseInt($(this).val());
+            drawGauge(val);
+        });
+
+        drawGauge(0); // inițial
+    });
+</script>
+</body>
+</html>

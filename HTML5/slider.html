@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="ro">
+<head>
+    <meta charset="UTF-8">
+    <title>Slider jQuery</title>
+    <link rel="stylesheet" href="sliderStyle.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
+<body class="body-main">
+
+
+
+<main>
+    <div>
+        <h2>Indicator Transport Gratuit</h2>
+        <canvas id="gaugeCanvas" width="300" height="150"></canvas>
+        <div id="amountDisplay">Total coș: 0 lei<br>Mai ai nevoie de: 200 lei</div>
+
+        <div id="sliderContainer">
+            <input type="range" id="amountSlider" min="0" max="250" step="1" value="0">
+        </div>
+    </div>
+
+    <div class="slider-config">
+        <label>Imagini vizibile:
+            <input id="numImages" type="number" value="1" min="1" max="4">
+        </label>
+        <label>Interval (sec):
+            <input id="interval" type="number" value="3" min="1">
+        </label>
+        <button id="startSlider">Start</button>
+    </div>
+
+    <div class="slider-box">
+        <div class="slider-viewport">
+            <div class="slider-content">
+                <div class="slide"><img src="bmw-select-model-style-rallye-1676369960822.png"/></div>
+                <div class="slide"><img src="CBR500R-culoare-04.png" alt="Image 2" /></div>
+                <div class="slide"><video src="https://www.w3schools.com/html/mov_bbb.mp4" controls></video></div>
+                <div class="slide"><img src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png" alt="Image 4" /></div>
+            </div>
+        </div>
+        <div class="slider-arrows">
+            <div class="arrow up-arrow">&#9650;</div>
+            <div class="arrow down-arrow">&#9660;</div>
+        </div>
+    </div>
+
+</main>
+
+<script>
+    let intervalID;
+    let index = 0;
+    let visible = 1;
+
+    function updateSliderHeight() {
+        const slideHeight = $('.slide').outerHeight(true);
+        $('.slider-viewport').css('height', slideHeight * visible + 'px');
+    }
+
+    function slideImages(step = 1) {
+        const slideHeight = $('.slide').outerHeight(true);
+        const $content = $('.slider-content');
+        index += step;
+        if (index < 0) index = 0;
+        const maxIndex = $('.slide').length - visible;
+        if (index > maxIndex) index = maxIndex;
+        $content.stop().animate({ top: -index * slideHeight + "px" }, 500);
+    }
+
+    $(document).ready(function () {
+        updateSliderHeight();
+
+        $('#startSlider').on('click', function () {
+            visible = parseInt($('#numImages').val());
+            updateSliderHeight();
+            const interval = parseInt($('#interval').val()) * 1000;
+            clearInterval(intervalID);
+            intervalID = setInterval(() => slideImages(1), interval);
+        });
+
+        $('.up-arrow').on('click', () => slideImages(-1));
+        $('.down-arrow').on('click', () => slideImages(1));
+    });
+
+</script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    const maxAmount = 200;
+
+    function drawGauge(current) {
+        const canvas = document.getElementById("gaugeCanvas");
+        const ctx = canvas.getContext("2d");
+        const centerX = canvas.width / 2;
+        const centerY = canvas.height;
+        const radius = 120;
+
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+        // Fundal semicerc gri
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, 0);
+        ctx.strokeStyle = "#ddd";
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        // Semicerc progres
+        const percentage = Math.min(current / maxAmount, 1);
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, radius, Math.PI, Math.PI + Math.PI * percentage);
+        ctx.strokeStyle = percentage >= 1 ? "#4caf50" : "#2196f3";
+        ctx.lineWidth = 20;
+        ctx.stroke();
+
+        // Acul (indicator)
+        const angle = Math.PI + Math.PI * percentage;
+        const needleLength = radius - 30;
+        const needleX = centerX + needleLength * Math.cos(angle);
+        const needleY = centerY + needleLength * Math.sin(angle);
+
+        ctx.beginPath();
+        ctx.moveTo(centerX, centerY);
+        ctx.lineTo(needleX, needleY);
+        ctx.strokeStyle = "red";
+        ctx.lineWidth = 4;
+        ctx.stroke();
+
+        // Punct central
+        ctx.beginPath();
+        ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = "black";
+        ctx.fill();
+
+        // Text informativ
+        const remaining = Math.max(maxAmount - current, 0);
+        $("#amountDisplay").html(`Total coș: ${current} lei<br>` +
+            (remaining === 0 ? "✅ Livrare gratuită!" :
+                `Mai ai nevoie de: ${remaining} lei`));
+    }
+
+    $(document).ready(function () {
+        $("#amountSlider").on("input", function () {
+            const val = parseInt($(this).val());
+            drawGauge(val);
+        });
+
+        drawGauge(0); // inițial
+    });
+</script>
+</body>
+</html>

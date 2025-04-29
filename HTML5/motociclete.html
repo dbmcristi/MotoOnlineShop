@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="ro">
 <head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Motociclete - Magazin Motociclete</title>
@@ -8,6 +9,42 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 
     <style>
+        #popup-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background: rgba(0, 0, 0, 0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 9999;
+        }
+
+        #popup-content {
+            background: white;
+            padding: 20px;
+            max-width: 90%;
+            max-height: 90%;
+            overflow: auto;
+            position: relative;
+            border-radius: 10px;
+        }
+
+        #popup-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            cursor: pointer;
+            color: #333;
+        }
+
+        .popup-trigger {
+            cursor: pointer;
+        }
+
         body {
             display: flex;
             flex-direction: column;
@@ -201,6 +238,12 @@
     </style>
 </head>
 <body>
+<div id="popup-overlay">
+    <div id="popup-content">
+        <span id="popup-close">&times;</span>
+        <div id="popup-inner"></div>
+    </div>
+</div>
 <header>
     <h1>Magazin Motociclete</h1>
     <nav>
@@ -241,7 +284,7 @@
         </tr>
         <tr>
             <td>
-                <img src="CBR500R-culoare-04.png" alt="Honda CBR">
+                <img class="popup-trigger" src="CBR500R-culoare-04.png" data-type="image" data-content="CBR500R-culoare-04.png" alt="Honda CBR">
                 <div class="tooltip">Honda CBR 500R - Sportiva accesibilă și puternică.Motocicleta sportivă perfectă
                     pentru începători și intermediari.Include ABS și sistem de pornire rapidă.
                 </div>
@@ -254,7 +297,8 @@
         </tr>
         <tr>
             <td>
-                <img src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png"
+                <img class="popup-trigger"  src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png"
+                     data-type="image" data-content="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png"
                      alt="Yamaha MT-07">
                 <div class="tooltip">Yamaha MT-07 - Naked bike agil și ușor de manevrat.Motor bicilindru de 689cc, ideal
                     pentru oraș și touring.Disponibilă și în varianta limitată A2.
@@ -269,13 +313,27 @@
         </tr>
         <tr>
             <td>
-                <img src="bmw-select-model-style-rallye-1676369960822.png" alt="BMW GS 1250">
+                <img class="popup-trigger" src="bmw-select-model-style-rallye-1676369960822.png"
+                     data-type="image" data-content="bmw-select-model-style-rallye-1676369960822.png"
+                     alt="BMW GS 1250">
                 <div class="tooltip">BMW GS 1250 - Cea mai bună motocicletă de aventură.Perfectă pentru drumuri lungi,
                     confort și tehnologie avansată.Include pilot automat și suspensie reglabilă.
                 </div>
             </td>
             <td>
                 BMW GS 1250
+            </td>
+            <td>
+
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <video class="popup-trigger" data-type="video" data-content="https://www.w3schools.com/html/mov_bbb.mp4" poster="iepure.png" muted></video>                <div class="tooltip">Iepure
+                </div>
+            </td>
+            <td>
+                iepure nebun
             </td>
             <td>
 
@@ -348,7 +406,8 @@
 
 
     <div id="slider-container">
-        <img id="slider-image" src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png" alt="Slide 1" />
+        <img id="slider-image" src="kompletny-uklad-wydechowy-akrapovic-racing-yamaha-mt-07-stal-nierdzewnatytan_1.png"
+             alt="Slide 1"/>
     </div>
 
     <div class="controls">
@@ -373,6 +432,32 @@
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
 <script>
+    $(document).ready(function () {
+        $(".popup-trigger").on("click", function (e) {
+            e.preventDefault();
+
+            const type = $(this).data("type");
+            const content = $(this).data("content");
+
+            let html = "";
+            if (type === "image") {
+                html = `<img src="${content}" style="max-width:100%; height:auto;">`;
+            } else if (type === "video") {
+                html = `<video src="${content}" controls style="max-width:100%; height:auto;"></video>`;
+            } else if (type === "html") {
+                html = $(`#${content}`).html();
+            }
+
+            $("#popup-inner").html(html);
+            $("#popup-overlay").fadeIn();
+        });
+
+        $("#popup-close, #popup-overlay").on("click", function (e) {
+            if (e.target === this || $(e.target).is("#popup-close")) {
+                $("#popup-overlay").fadeOut();
+            }
+        });
+    });
     document.querySelectorAll("table.sortable").forEach((table) => {
         const headers = table.querySelectorAll("thead th");
         headers.forEach((th, columnIndex) => {
