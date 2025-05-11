@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="ro">
+<!--<!DOCTYPE html>-->
+<!--<html lang="ro">-->
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -63,7 +63,7 @@
             border-collapse: collapse;
             margin: 20px auto;
             background-color: white;
-            box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             border-radius: 10px;
             overflow: hidden;
         }
@@ -91,7 +91,7 @@
             padding: 30px;
             border-radius: 12px;
             background-color: #fff;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
         }
 
         legend {
@@ -128,7 +128,7 @@
         select:focus,
         textarea:focus {
             border-color: #ff7e5f;
-            box-shadow: 0 0 10px rgba(255,126,95,0.25);
+            box-shadow: 0 0 10px rgba(255, 126, 95, 0.25);
             outline: none;
             background-color: #fff;
         }
@@ -155,7 +155,7 @@
         button:hover {
             background-color: #e66450;
             transform: scale(1.03);
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
         footer {
@@ -177,10 +177,21 @@
             margin-right: 5px;
         }
 
-        .sprite-home { background-position: 0 0; }
-        .sprite-user { background-position: -32px 0; }
-        .sprite-lock { background-position: 0 -32px; }
-        .sprite-moto { background-position: -32px -32px; }
+        .sprite-home {
+            background-position: 0 0;
+        }
+
+        .sprite-user {
+            background-position: -32px 0;
+        }
+
+        .sprite-lock {
+            background-position: 0 -32px;
+        }
+
+        .sprite-moto {
+            background-position: -32px -32px;
+        }
 
         /*La hover pe link-urile din meniu, item-ul activ va avea o bordura / un
 background care apare cu o animatie de cateva secunde. Variantele pentru meniu sunt
@@ -296,36 +307,11 @@ urmatoarele:*/
     </style>
 </head>
 <body>
-<header>
-    <h1>Magazin Motociclete</h1>
-    <nav>
-        <ul class="menu">
-            <li>
-                <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a>
-            </li>
-            <li>
-                <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a>
-                <ul class="submenu">
-                    <li><a href="inregistrare_client.html">Client</a></li>
-                    <li><a href="inregistrare_magazin.html">Magazin</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a>
-                <ul class="submenu">
-                    <li><a href="recuperare_parola.html">Recuperare parolă</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
-                <ul class="submenu">
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-</header>
+
+<?php
+include 'header.php';
+?>
+
 <main>
     <table>
         <tr>
@@ -333,77 +319,44 @@ urmatoarele:*/
         </tr>
         <tr>
             <td>
-                <form action="procesare.html" method="post">
+                <!--                <form action="welcome.php" method="POST">-->
+                <!--                    Name: <input type="text" name="name"><br>-->
+                <!--                    E-mail: <input type="text" name="email"><br>-->
+                <!--                    <input type="submit">-->
+                <!--                </form>-->
+                <form action="apiUser.php" method="post">
                     <fieldset>
                         <legend>Detalii utilizator</legend>
-                        <label for="email"><i class="fas fa-envelope"></i> Email:</label>
+                        <label for="username"><i class="fas fa-envelope"></i> Email:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="email" id="email" name="email" required style="flex: 1;">
-                            <span id="email-valid"
+                            <input type="username" id="username" name="username" required style="flex: 1;">
+                            <span id="username-valid"
                                   style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
                         </div>
-                        <label for="parola"><i class="fas fa-lock"></i> Parola:</label>
+                        <label for="password"><i class="fas fa-lock"></i> Parola:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="password" id="parola" name="parola" required style="flex: 1;">
-                            <span id="parola-valid"
+                            <input type="password" id="password" name="password" required style="flex: 1;">
+                            <span id="password-valid"
                                   style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
                         </div>
-
-                        <label for="input1">Câmp 1:</label>
+                        <label for="phone">Telefon:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="text" id="input1" name="input1" required style="flex: 1;">
-                            <span id="valid1"
-                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
-                        </div>
-
-                        <label for="input2">Câmp 2:</label>
-                        <div style="display: flex; align-items: center;">
-                            <input type="text" id="input2" name="input2" required style="flex: 1;">
-                            <span id="valid2"
-                                  style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
-                        </div>
-
-                        <label for="telefon">Telefon:</label>
-                        <div style="display: flex; align-items: center;">
-                            <input type="text" id="telefon" name="telefon" placeholder="(+40) 777 777 777" required
+                            <input type="text" id="phone" name="phone" placeholder="(+40) 777 777 777" required
                                    style="flex: 1;">
-                            <span id="telefon-valid"
+                            <span id="phone-valid"
                                   style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
                         </div>
 
                         <label type="tip"><i class="fas fa-user-tag"></i> Tip utilizator:</label>
                         <label for="client">Client</label>
-                        <input type="radio" id="client" name="tip" value="client" required>
-
+                        <input type="radio" id="client" name="type" value="client" required>
                         <label for="magazin">Magazin</label>
-                        <input type="radio" id="magazin" name="tip" value="magazin">
+                        <input type="radio" id="magazin" name="type" value="magazin">
+                        <input type="hidden" id="type" name="type">
+                        <input type="hidden" id="isLogin" name="isLogin">
 
-                        <label for="observatii"><i class="fas fa-comment"></i> Observații:</label>
-                        <textarea id="observatii" name="observatii"
-                                  placeholder="Scrie detalii suplimentare..."></textarea>
-
-                        <label for="judet">Județ:</label>
-                        <select id="judet">
-                            <option value="">-- Selectează un județ --</option>
-                        </select>
-
-                        <label for="oras">Oraș:</label>
-                        <select id="oras">
-                            <option value="">-- Selectează un oraș --</option>
-                        </select>
-                        <label for="data">Introdu data:</label>
-                        <input type="text" id="data" placeholder="Ex: 31/01/2006">
-
-                        <label for="format">Selectează formatul:</label>
-                        <select id="format">
-                            <option value="zz/ll/aaaa">zz/ll/aaaa</option>
-                            <option value="ll/zz/aaaa">ll/zz/aaaa</option>
-                            <option value="zz/ll/aa">zz/ll/aa</option>
-                        </select>
-
-                        <button type="button" onclick="valideazaData()">Verifică</button>
-
-                        <p id="rezultat"></p>
+                        <label for="address">Adresa:</label>
+                        <input type="text" id="address" name="address">
 
                         <button type="submit"><i class="fas fa-user-plus"></i> Înregistrează-te</button>
                     </fieldset>
@@ -439,15 +392,51 @@ urmatoarele:*/
 <footer>
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
+<!--<script>-->
+<!--    fetch('your-api-endpoint.php')-->
+<!--        .then(response => response.json())-->
+<!--        .then(data => {-->
+<!--            if (data.error) {-->
+<!--                alert("Error: " + data.error);-->
+<!--            } else {-->
+<!--                // Handle success-->
+<!--            }-->
+<!--        })-->
+<!--        .catch(err => {-->
+<!--            alert("Unexpected error: " + err.message);-->
+<!--        });-->
+<!--</script>-->
 <script>
-    const parolaInput = document.getElementById('parola');
-    const indicator = document.getElementById('parola-valid');
+    // Aceasta funcție poate fi apelată, de exemplu, la trimiterea formularului
+    function getSelectedRadioValue() {
+        const selected = document.querySelector('input[name="type"]:checked');
+        if (selected) {
+            console.log("Valoarea selectată:", selected.value);
+            return selected.value;
+        } else {
+            console.log("Niciun radio button nu este selectat.");
+            return null;
+        }
+    }
 
-    function valideazaParola(parola) {
-        const areLiteraMare = /[A-Z]/.test(parola);
-        const areLiteraMica = /[a-z]/.test(parola);
-        const areCifra = /\d/.test(parola);
-        const areSpecial = /[!]/.test(parola);
+    // Exemplu: actualizează valoarea câmpului hidden înainte de trimitere
+    document.querySelector("form").addEventListener("submit", function (e) {
+        const selectedValue = getSelectedRadioValue();
+        if (selectedValue) {
+            document.getElementById("type").value = selectedValue;
+            document.getElementById("isLogin").value = "false";
+        }
+    });
+</script>
+<script>
+    const parolaInput = document.getElementById('password');
+    const indicator = document.getElementById('password-valid');
+
+    function valideazaParola(password) {
+        const areLiteraMare = /[A-Z]/.test(password);
+        const areLiteraMica = /[a-z]/.test(password);
+        const areCifra = /\d/.test(password);
+        const areSpecial = /[!]/.test(password);
 
         return areLiteraMare && areLiteraMica && areCifra && areSpecial;
     }
@@ -461,17 +450,17 @@ urmatoarele:*/
     });
 </script>
 <script>
-    const emailInput = document.getElementById('email');
-    const emailIndicator = document.getElementById('email-valid');
+    const emailInput = document.getElementById('username');
+    const emailIndicator = document.getElementById('username-valid');
 
-    function valideazaEmail(email) {
+    function valideazaEmail(username) {
         // Doar litere, cifre, _ înainte de @
         const pattern = /^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]+(\.[a-zA-Z]+)*$/;
 
         // Verificăm și că există un singur @
-        const atCount = (email.match(/@/g) || []).length;
+        const atCount = (username.match(/@/g) || []).length;
 
-        return pattern.test(email) && atCount === 1;
+        return pattern.test(username) && atCount === 1;
     }
 
     emailInput.addEventListener('input', function () {
@@ -505,8 +494,8 @@ urmatoarele:*/
     input2.addEventListener('input', () => actualizeazaIndicator(input2, valid2));
 </script>
 <script>
-    const telefonInput = document.getElementById('telefon');
-    const telefonValid = document.getElementById('telefon-valid');
+    const telefonInput = document.getElementById('phone');
+    const telefonValid = document.getElementById('phone-valid');
 
     function valideazaTelefon(val) {
         const normalizat = val.replace(/\s+/g, '');
@@ -648,4 +637,4 @@ urmatoarele:*/
     startInterval();
 </script>
 </body>
-</html>
+<!--</html>-->

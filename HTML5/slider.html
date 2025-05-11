@@ -8,8 +8,6 @@
 </head>
 <body class="body-main">
 
-
-
 <main>
     <div>
         <h2>Indicator Transport Gratuit</h2>
@@ -112,26 +110,26 @@
         ctx.lineWidth = 20;
         ctx.stroke();
 
-        // Acul (indicator)
+        // Acul
         const angle = Math.PI + Math.PI * percentage;
         const needleLength = radius - 30;
-        const needleX = centerX + needleLength * Math.cos(angle);
+        const needleX = centerX + needleLength * Math.cos(angle);//coord arcei in fctie de centru
         const needleY = centerY + needleLength * Math.sin(angle);
 
         ctx.beginPath();
-        ctx.moveTo(centerX, centerY);
-        ctx.lineTo(needleX, needleY);
+        ctx.moveTo(centerX, centerY);//muta cursoru
+        ctx.lineTo(needleX, needleY);//de la centur trage o linie
         ctx.strokeStyle = "red";
         ctx.lineWidth = 4;
         ctx.stroke();
 
-        // Punct central
+        // Punct central e un cerc negru practic
         ctx.beginPath();
         ctx.arc(centerX, centerY, 5, 0, 2 * Math.PI);
         ctx.fillStyle = "black";
         ctx.fill();
 
-        // Text informativ
+        // Info
         const remaining = Math.max(maxAmount - current, 0);
         $("#amountDisplay").html(`Total coș: ${current} lei<br>` +
             (remaining === 0 ? "✅ Livrare gratuită!" :

@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Administrare Motociclete</title>
-     <style>
+    <title>Magazin Motociclete</title>
+   <style>
         body {
             display: flex;
             flex-direction: column;
@@ -140,87 +140,86 @@
         .sprite-user { background-position: -32px 0; }
         .sprite-lock { background-position: 0 -32px; }
         .sprite-moto { background-position: -32px -32px; }
-    </style>
+        nav ul.menu {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+        }
+
+        nav ul.menu > li {
+            position: relative;
+            margin: 0 15px;
+        }
+
+        nav ul.menu > li > a {
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 10px 15px;
+            display: block;
+            position: relative;
+            transition: color 0.3s;
+        }
+
+        nav ul.menu > li > a:hover {
+            color: #333;
+        }
+
+        nav ul.menu li ul.submenu {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            background: rgba(255, 126, 95, 0.95);
+            border-radius: 0 0 10px 10px;
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            min-width: 150px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-20px);
+            transition: all 0.4s ease;
+            z-index: 99;
+        }
+
+        nav ul.menu li:hover ul.submenu {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0);
+        }
+
+        nav ul.menu li ul.submenu li a {
+            color: white;
+            padding: 10px 15px;
+            display: block;
+            text-decoration: none;
+            transition: background 0.3s;
+        }
+
+        nav ul.menu li ul.submenu li a:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+   </style>
 </head>
 <body>
-
-<header>
-    <h1>Magazin Motociclete</h1>
-    <nav>
-        <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a> |
-        <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a> |
-        <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a> |
-        <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
-    </nav>
-</header>
-
-<main>
-        <section>
-            <table>
-                <tr>
-                    <td colspan="2" class="header"><strong>Adaugare Motocicleta</strong></td>
-                </tr>
-                <tr>
-                    <td>
-                        <form action="procesare.php" method="post" enctype="multipart/form-data">
-                            <fieldset>
-                                <legend>Detalii Motocicleta</legend>
-                                <p>Marca: <input type="text" name="marca" maxlength="50" required></p>
-                                <p>Model: <input type="text" name="model" maxlength="50" required></p>
-                                <p>An: <input type="number" name="an" min="1900" max="2025" required></p>
-                                <p>Pret: <input type="number" name="pret" min="1" required> Lei</p>
-                                <p>Tip:
-                                    <select name="tip">
-                                        <option value="sport">Sport</option>
-                                        <option value="cruiser">Cruiser</option>
-                                        <option value="touring">Touring</option>
-                                        <option value="naked">Naked</option>
-                                    </select>
-                                </p>
-                                <p>Descriere: <textarea name="descriere" rows="4" cols="40"></textarea></p>
-                                <p>Imagine: <input type="file" name="imagine" accept="image/*"></p>
-                                <p><input type="submit" value="Adauga Motocicleta"></p>
-                            </fieldset>
-                        </form>
-                    </td>
-                </tr>
-            </table>
-        </section>
-
-        <section>
-            <table>
-                <tr>
-                    <td colspan="3" class="header"><strong>Lista Motociclete</strong></td>
-                </tr>
-                <tr>
-                    <th>Marca</th>
-                    <th>Model</th>
-                    <th>Actiuni</th>
-                </tr>
-                <tr>
-                    <td>Yamaha</td>
-                    <td>R1</td>
-                    <td>
-                        <a href="editare.html?id=1">Editeaza</a> |
-                        <a href="stergere.html?id=1">Sterge</a>
-                    </td>
-                </tr>
-                <tr>
-                    <td>Honda</td>
-                    <td>CBR600RR</td>
-                    <td>
-                        <a href="editare.html?id=2">Editeaza</a> |
-                        <a href="stergere.html?id=2">Sterge</a>
-                    </td>
-                </tr>
-            </table>
-        </section>
+<?php
+include 'header.php';
+?>
+    
+    <main>
+        <table>
+            <tr>
+                <td colspan="2" class="header">BUN VENIT</td>
+            </tr>
+        </table>
     </main>
 
     <footer>
         <p>&copy; 2025 Magazin Motociclete</p>
     </footer>
-
 </body>
 </html>
 

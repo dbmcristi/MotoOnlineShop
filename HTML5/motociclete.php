@@ -237,43 +237,19 @@
 
     </style>
 </head>
+<?php
+include 'header.php';
+
+?>
 <body>
+
 <div id="popup-overlay">
     <div id="popup-content">
         <span id="popup-close">&times;</span>
         <div id="popup-inner"></div>
     </div>
 </div>
-<header>
-    <h1>Magazin Motociclete</h1>
-    <nav>
-        <ul class="menu">
-            <li>
-                <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a>
-            </li>
-            <li>
-                <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a>
-                <ul class="submenu">
-                    <li><a href="inregistrare_client.html">Client</a></li>
-                    <li><a href="inregistrare_magazin.html">Magazin</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a>
-                <ul class="submenu">
-                    <li><a href="recuperare_parola.html">Recuperare parolă</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
-                <ul class="submenu">
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-</header>
+
 
 <main>
     <table>
@@ -329,11 +305,11 @@
         </tr>
         <tr>
             <td>
-                <video class="popup-trigger" data-type="video" data-content="https://www.w3schools.com/html/mov_bbb.mp4" poster="iepure.png" muted></video>                <div class="tooltip">Iepure
+                <video class="popup-trigger" data-type="video" data-content="https://www.w3schools.com/php/mov_bbb.mp4" poster="iepure.png" muted></video>                <div class="tooltip">Iepure
                 </div>
             </td>
             <td>
-                iepure nebun
+                iepure
             </td>
             <td>
 
@@ -432,24 +408,24 @@
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
 <script>
-    $(document).ready(function () {
+    $(document).ready(function () {//ia din pagina toate elemd din calsa .popup-trigger
         $(".popup-trigger").on("click", function (e) {
-            e.preventDefault();
+            e.preventDefault();//opreset actiunea sa default
 
-            const type = $(this).data("type");
-            const content = $(this).data("content");
+            const type = $(this).data("type");//ia tipu oiectului pe care s a apasat
+            const content = $(this).data("content");//ia din src data-content specifi jquery
 
-            let html = "";
+            let data = "";
             if (type === "image") {
-                html = `<img src="${content}" style="max-width:100%; height:auto;">`;
+                data = `<img src="${content}" style="max-width:100%; height:auto;">`;
             } else if (type === "video") {
-                html = `<video src="${content}" controls style="max-width:100%; height:auto;"></video>`;
-            } else if (type === "html") {
-                html = $(`#${content}`).html();
+                data = `<video src="${content}" controls style="max-width:100%; height:auto;"></video>`;
+            } else if (type === "php") {
+                data = $(`#${content}`).php();
             }
 
-            $("#popup-inner").html(html);
-            $("#popup-overlay").fadeIn();
+            $("#popup-inner").php(data);
+            $("#popup-overlay").fadeIn(); //fadein vizibil fadeout invizibil
         });
 
         $("#popup-close, #popup-overlay").on("click", function (e) {
@@ -458,6 +434,7 @@
             }
         });
     });
+
     document.querySelectorAll("table.sortable").forEach((table) => {
         const headers = table.querySelectorAll("thead th");
         headers.forEach((th, columnIndex) => {

@@ -109,7 +109,7 @@
             font-size: 1rem;
         }
 
-        input[type="email"],
+        input[type="username"],
         input[type="password"],
         select:focus
         textarea {
@@ -123,7 +123,7 @@
             background-color: #fafafa;
         }
 
-        input[type="email"]:focus,
+        input[type="username"]:focus,
         input[type="password"]:focus,
         select:focus,
         textarea:focus {
@@ -296,37 +296,10 @@ urmatoarele:*/
     </style>
 </head>
 <body>
-<header>
-    <h1>Magazin Motociclete</h1>
-    <nav>
-        <ul class="menu">
-            <li>
-                <a href="index.html"><span class="sprite-icon sprite-home"></span>Acasa</a>
-            </li>
-            <li>
-                <a href="inregistrare.html"><span class="sprite-icon sprite-user"></span>Inregistrare</a>
-                <ul class="submenu">
-                    <li><a href="inregistrare_client.html">Client</a></li>
-                    <li><a href="inregistrare_magazin.html">Magazin</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="autentificare.html"><span class="sprite-icon sprite-lock"></span>Autentificare</a>
-                <ul class="submenu">
-                    <li><a href="recuperare_parola.html">Recuperare parolă</a></li>
-                </ul>
-            </li>
-            <li>
-                <a href="motociclete.html"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
-                <ul class="submenu">
-                    <li><a href="news.html">News</a></li>
-                    <li><a href="blog.html">Blog</a></li>
-                </ul>
-            </li>
-        </ul>
-    </nav>
-</header>
+<?php
+include 'header.php';
 
+?>
 
 <main>
     <table>
@@ -335,26 +308,18 @@ urmatoarele:*/
         </tr>
         <tr>
             <td>
-                <form action="procesare.html" method="post">
+                <form action="apiUser.php" method="post">
                     <fieldset>
                         <legend>Detalii utilizator</legend>
-                        <label for="email"><i class="fas fa-envelope"></i> Email:</label>
-                        <input type="email" id="email" name="email" required>
+                        <label for="username"><i class="fas fa-envelope"></i> username:</label>
+                        <input type="username" id="username" name="username" required>
 
-                        <label for="parola"><i class="fas fa-lock"></i> Parola:</label>
+                        <label for="password"><i class="fas fa-lock"></i> Password:</label>
                         <div style="display: flex; align-items: center;">
-                            <input type="password" id="parola" name="parola" required style="flex: 1;">
-                            <span id="parola-valid" style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
+                            <input type="password" id="password" name="password" required style="flex: 1;">
+                            <span id="password-valid" style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
                         </div>
-
-                        <p><i class="fas fa-user-tag"></i> Tip utilizator:</p>
-                        <label for="client">Client</label>
-                        <input type="radio" id="client" name="tip" value="client" required>
-
-                        <label for="magazin">Magazin</label>
-                        <input type="radio" id="magazin" name="tip" value="magazin">
-
-
+                        <input type="hidden" id="isLogin" name="isLogin">
                         <button type="submit"><i class="fas fa-user-plus"></i> Autentifica-te</button>
                     </fieldset>
                 </form>
@@ -367,14 +332,20 @@ urmatoarele:*/
     <p>&copy; 2025 Magazin Motociclete</p>
 </footer>
 <script>
-    const parolaInput = document.getElementById('parola');
-    const indicator = document.getElementById('parola-valid');
+// Exemplu: actualizează valoarea câmpului hidden înainte de trimitere
+document.querySelector("form").addEventListener("submit", function (e) {
+document.getElementById("isLogin").value = "true";
+});
+</script>
+<script>
+    const parolaInput = document.getElementById('password');
+    const indicator = document.getElementById('password-valid');
 
-    function valideazaParola(parola) {
-        const areLiteraMare = /[A-Z]/.test(parola);
-        const areLiteraMica = /[a-z]/.test(parola);
-        const areCifra = /\d/.test(parola);
-        const areSpecial = /[!]/.test(parola);
+    function valideazaParola(password) {
+        const areLiteraMare = /[A-Z]/.test(password);
+        const areLiteraMica = /[a-z]/.test(password);
+        const areCifra = /\d/.test(password);
+        const areSpecial = /[!]/.test(password);
 
         return areLiteraMare && areLiteraMica && areCifra && areSpecial;
     }
@@ -388,17 +359,17 @@ urmatoarele:*/
     });
 </script>
 <script>
-    const emailInput = document.getElementById('email');
-    const emailIndicator = document.getElementById('email-valid');
+    const emailInput = document.getElementById('username');
+    const emailIndicator = document.getElementById('username-valid');
 
-    function valideazaEmail(email) {
+    function valideazaEmail(username) {
         // Doar litere, cifre, _ înainte de @
         const pattern = /^[a-zA-Z0-9_]+@[a-zA-Z0-9_]+\.[a-zA-Z]+(\.[a-zA-Z]+)*$/;
 
         // Verificăm și că există un singur @
-        const atCount = (email.match(/@/g) || []).length;
+        const atCount = (username.match(/@/g) || []).length;
 
-        return pattern.test(email) && atCount === 1;
+        return pattern.test(username) && atCount === 1;
     }
 
     emailInput.addEventListener('input', function () {
