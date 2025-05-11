@@ -304,23 +304,21 @@ include 'header.php';
 <main>
     <table>
         <tr>
-            <td colspan="2" class="header">Autentificare <i class="fas fa-user-plus"></i></td>
+            <td colspan="2" class="header">Change password for  <?php echo $GLOBALS['current_userId'] ?><i class="fas fa-user-plus"></i></td>
         </tr>
         <tr>
             <td>
                 <form action="apiUser.php" method="post">
                     <fieldset>
                         <legend>Detalii utilizator</legend>
-                        <label for="username"><i class="fas fa-envelope"></i> username:</label>
-                        <input type="username" id="username" name="username" required>
-
+                        <input type="hidden" id="isChangePassword" name="isChangePassword">
+                        <input type="hidden" id="userId" name="userId" value="<?php echo $GLOBALS['current_userId'] ?>">
                         <label for="password"><i class="fas fa-lock"></i> Password:</label>
                         <div style="display: flex; align-items: center;">
                             <input type="password" id="password" name="password" required style="flex: 1;">
                             <span id="password-valid" style="width: 15px; height: 15px; margin-left: 10px; border-radius: 50%; background-color: gray;"></span>
                         </div>
-                        <input type="hidden" id="isLogin" name="isLogin">
-                        <button type="submit"><i class="fas fa-user-plus"></i> Autentifica-te</button>
+                        <button type="submit"><i class="fas fa-user-plus"></i> SAVE</button>
                     </fieldset>
                 </form>
             </td>
@@ -334,7 +332,9 @@ include 'header.php';
 <script>
 // Exemplu: actualizează valoarea câmpului hidden înainte de trimitere
 document.querySelector("form").addEventListener("submit", function (e) {
-document.getElementById("isLogin").value = "true";
+document.getElementById("isChangePassword").value = "true";
+ const myUserId = document.getElementById('userId').value;
+console.log("myUserId is:", myUserId);  // <-- Add this
 });
 </script>
 <script>

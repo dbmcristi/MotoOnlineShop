@@ -1,4 +1,6 @@
-<?php global $error_message;
+<?php
+global $error_message;
+global $current_userId;
 ?>
 <header>
     <h1>Magazin Motociclete</h1>
@@ -16,6 +18,9 @@
             <li>
                 <a href="motociclete.php"><span class="sprite-icon sprite-moto"></span>Motociclete</a>
             </li>
+            <li>
+                <a href="changePassword.php"><span class="sprite-icon sprite-moto"></span>Change password</a>
+            </li>
         </ul>
 
     </nav>
@@ -23,6 +28,7 @@
     <div style="color: red; font-weight: bold;">
         <?php
         echo $error_message;
+        echo $current_userId;
         ?>
     </div>
 

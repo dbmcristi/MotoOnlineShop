@@ -1,5 +1,5 @@
-<!DOCTYPE html>
-<html lang="ro">
+<!--<!DOCTYPE html>-->
+<!--<html lang="ro">-->
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <meta charset="UTF-8">
@@ -527,4 +527,4 @@ include 'header.php';
 </script>
 
 </body>
-</html>
+<!--</html>-->
